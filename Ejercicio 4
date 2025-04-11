@@ -1,0 +1,52 @@
+class Libro:
+    def __init__(self, titulo, autor, numero_paginas):  
+
+        self.__titulo = titulo
+        self.__autor = autor
+        if numero_paginas < 1:
+            raise ValueError("El número total de páginas debe ser al menos de uno")
+        self.__numero_paginas = numero_paginas
+        self.__pagina_actual = 1
+
+    def avanzar_paginas(self, paginas): #Metodo avanzar si el mumero es negativo error
+        if paginas < 0:
+            raise ValueError("El número de páginas  debe ser positivo.")
+        
+        nueva_pagina = self.__pagina_actual + paginas
+        if nueva_pagina > self.__numero_paginas:
+            raise ValueError("No se puede avanzar más allá del número total de páginas.")
+        self.__pagina_actual = nueva_pagina
+
+    def retroceder_paginas(self, paginas):#error si avanza un numero negativo
+        if paginas < 0:
+            raise ValueError("El número de páginas a retroceder debe ser positivo.")
+        
+        nueva_pagina = self.__pagina_actual - paginas
+        if nueva_pagina < 1:
+            raise ValueError("No se puede retroceder más allá de la página uno.")
+        self.__pagina_actual = nueva_pagina
+
+    def consultar_pagina(self): #Metodo para devolver anterior
+        return self.__pagina_actual
+
+    def obtener_info(self):
+        info = ("Título: " + self.__titulo + "\n" +
+                "Autor: " + self.__autor + "\n" +
+                "Páginas totales: " + str(self.__numero_paginas) + "\n" +
+                "Página actual: " + str(self.__pagina_actual))
+        return info
+try:
+    mi_libro = Libro("La fuerza de Sheccid", "carlos cuauhtémoc", 120)
+    print(mi_libro.obtener_info())
+    
+    mi_libro.avanzar_paginas(15)
+    print("\nDespués de avanzar 10 páginas:")
+    print("Página actual:", mi_libro.consultar_pagina())
+    mi_libro.retroceder_paginas(7)
+    print("\nDespués de retroceder 5 páginas:")
+    print("Página actual:", mi_libro.consultar_pagina())
+    
+    # Error si se avanza mas pagiinas de 120
+    mi_libro.avanzar_paginas(50)
+except ValueError as error:
+    print("\nError:", error)
