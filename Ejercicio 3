@@ -1,0 +1,35 @@
+class Estudiante: 
+    def __init__(self, nombre, edad):
+        self.__nombre = nombre
+        self.__edad = edad
+        self.__notas = []
+
+    def agregar_nota(self, nota): 
+        if nota < 0 or nota > 100: 
+            raise ValueError("La nota debe estar entre 0 y 100.")
+        self.__notas.append(nota)
+
+    def calcular_promedio(self): 
+        if len(self.__notas) == 0: 
+            return 0
+        return sum(self.__notas) / len(self.__notas)
+
+    def consultar_nombre(self): 
+        return self.__nombre
+
+    def consultar_edad(self): 
+        return self.__edad
+
+try: 
+    estudiante = Estudiante("Dayiris", 29)
+    estudiante.agregar_nota(3.0)
+    estudiante.agregar_nota(4.7)
+    estudiante.agregar_nota(4.6)
+    
+    print(estudiante.consultar_nombre())
+    print(estudiante.consultar_edad())
+    promedio = estudiante.calcular_promedio()
+    print(f"Promedio: {promedio:.2f}")
+
+except ValueError as error: 
+    print("Error: ", error)
