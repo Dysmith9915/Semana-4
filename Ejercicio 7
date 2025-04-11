@@ -1,0 +1,40 @@
+class TarjetaCredito:
+    
+    def __init__(self, numero): # Método constructor
+        self.__numero = numero
+
+    # Método estático 
+    @staticmethod
+    def validar_tarjeta(numero):
+        # Se convierte el número de tarjeta a una cadena para iterar sobre cada dígito,
+        digitos = [int(d) for d in str(numero)]
+        
+        # Se invierte la lista de dígitos.
+        digitos.reverse()
+
+        suma = 0  
+        for i, digito in enumerate(digitos):
+            if i % 2 == 1:
+                # Se duplica el valor del dígito.
+                digito *= 2
+                # Si el número duplicado es mayor que 9, se le resta 9.
+                # Este paso comprime números de dos dígitos en uno solo (la suma de sus dígitos),
+                # lo que es equivalente a restar 9 para números entre 10 y 18.
+                if digito > 9:
+                    digito -= 9
+            # Se acumula el dígito (ya modificado, si era necesario) a la suma total.
+            suma += digito
+
+        # Finalmente, según el algoritmo de Luhn, el número es válido si la suma total es múltiplo de 10.
+        return suma % 10 == 0
+
+    # Método de instancia para obtener el número de la tarjeta (almacenado de forma privada).
+    def obtener_numero(self):
+        return self.__numero
+numero_tarjeta = 4111111111111111
+
+
+if TarjetaCredito.validar_tarjeta(numero_tarjeta):
+    print("El número de tarjeta es válido.")
+else:
+    print("El número de tarjeta no es válido.")
