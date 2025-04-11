@@ -1,0 +1,26 @@
+class Empleado:
+    __total_empleados = 0 
+
+    def __init__(self, nombre, salario):
+        # Atributos privados
+        self.__nombre = nombre
+        self.__salario = salario
+        Empleado.__total_empleados += 1 #Contador
+
+    def obtener_nombre(self):
+        return self.__nombre
+
+    def obtener_salario(self):
+        return self.__salario
+
+    @classmethod
+    def cantidad_empleados(cls): # Devuelve el número total de empleados  
+        return cls.__total_empleados
+
+empleado1 = Empleado("Juan", 1200000)
+empleado2 = Empleado("Dayiris", 2250000)
+empleado3 = Empleado("Miguel", 3000000)
+
+print("Nombre del primer empleado:", empleado1.obtener_nombre())
+print("Salario del primer empleado:", empleado1.obtener_salario())
+print("Cantidad total de empleados:", Empleado.cantidad_empleados())
